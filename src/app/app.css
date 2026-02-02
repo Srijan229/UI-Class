@@ -1,0 +1,81 @@
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: var(--ink-900);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(18, 20, 25, 0.08);
+  background: rgba(250, 250, 252, 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: conic-gradient(from 140deg, var(--accent-500), var(--accent-200), var(--accent-600));
+  box-shadow: 0 12px 24px rgba(19, 44, 84, 0.16);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.brand-title {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.brand-subtitle {
+  font-size: 0.85rem;
+  color: var(--ink-600);
+}
+
+.app-nav a {
+  font-weight: 600;
+  color: var(--ink-700);
+  text-decoration: none;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.app-nav a.active,
+.app-nav a:hover {
+  background: rgba(34, 101, 255, 0.12);
+  color: var(--ink-900);
+}
+
+.app-main {
+  padding: 2rem;
+}
+
+@media (max-width: 720px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .app-main {
+    padding: 1.5rem 1.25rem 2.5rem;
+  }
+}

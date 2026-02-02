@@ -1,0 +1,70 @@
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h1>Items</h1>
+      <p class="subtitle">Track work, ideas, and tasks in one clean list.</p>
+    </div>
+    <a class="primary-button" routerLink="/items/new">Create Item</a>
+  </div>
+
+  <div class="notice" *ngIf="notice">
+    <span>{{ notice }}</span>
+    <button type="button" (click)="clearNotice()">Dismiss</button>
+  </div>
+
+  <div class="filters">
+    <label class="search-field">
+      <span>Search</span>
+      <input
+        type="text"
+        placeholder="Find by title or description..."
+        [formControl]="searchControl"
+      />
+    </label>
+    <label class="status-field">
+      <span>Status</span>
+      <select [formControl]="statusControl">
+        <option value="All">All</option>
+        <option value="Open">Open</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+    </label>
+  </div>
+
+  <div *ngIf="items.length === 0" class="empty-state">
+    <h3>No items yet</h3>
+    <p>Start by creating your first item.</p>
+    <a class="primary-button" routerLink="/items/new">Create Item</a>
+  </div>
+
+  <div class="list" *ngIf="items.length > 0">
+    <div class="list-header">
+      <span>Title</span>
+      <span>Status</span>
+      <span>Created</span>
+      <span>Actions</span>
+    </div>
+    <div class="list-row" *ngFor="let item of filteredItems; trackBy: trackById">
+      <div class="title">
+        <strong>{{ item.title }}</strong>
+        <div class="description">{{ item.description }}</div>
+      </div>
+      <div>
+        <span class="status" [ngClass]="item.status.replace(' ', '-')">{{ item.status }}</span>
+      </div>
+      <div class="created">{{ item.createdAt | date: 'mediumDate' }}</div>
+      <div class="actions">
+        <a class="ghost-button" [routerLink]="['/items', item.id]">View</a>
+        <button class="danger-button" type="button" (click)="deleteItem(item)">
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="filteredItems.length === 0" class="empty-state compact">
+      <h3>No matching items</h3>
+      <p>Try a different search or status filter.</p>
+    </div>
+  </div>
+</section>

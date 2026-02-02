@@ -1,0 +1,50 @@
+<section class="page" *ngIf="!notFound; else notFoundTpl">
+  <div class="page-header">
+    <div>
+      <h1>{{ isEdit ? 'Edit Item' : 'Create Item' }}</h1>
+      <p class="subtitle">
+        {{ isEdit ? 'Update the details for this item.' : 'Add a new item to your list.' }}
+      </p>
+    </div>
+    <a class="ghost-button" routerLink="/items">Back</a>
+  </div>
+
+  <form class="form-card" [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      <span>Title</span>
+      <input type="text" formControlName="title" placeholder="Item title" />
+      <small *ngIf="form.controls.title.touched && form.controls.title.invalid">
+        Title is required (min 3 characters).
+      </small>
+    </label>
+
+    <label>
+      <span>Description</span>
+      <textarea rows="5" formControlName="description" placeholder="Describe the item"></textarea>
+      <small *ngIf="form.controls.description.touched && form.controls.description.invalid">
+        Description is required (min 5 characters).
+      </small>
+    </label>
+
+    <label>
+      <span>Status</span>
+      <select formControlName="status">
+        <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+      </select>
+    </label>
+
+    <div class="form-actions">
+      <button class="primary-button" type="submit">
+        {{ isEdit ? 'Update Item' : 'Save Item' }}
+      </button>
+    </div>
+  </form>
+</section>
+
+<ng-template #notFoundTpl>
+  <section class="empty-state">
+    <h2>Item not found</h2>
+    <p>We could not locate that item.</p>
+    <a class="primary-button" routerLink="/items">Back to Items</a>
+  </section>
+</ng-template>

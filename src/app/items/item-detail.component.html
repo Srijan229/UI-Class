@@ -1,0 +1,39 @@
+<section class="page" *ngIf="item; else notFound">
+  <div class="page-header">
+    <div>
+      <h1>{{ item?.title }}</h1>
+      <p class="subtitle">{{ item?.description }}</p>
+    </div>
+    <div class="actions">
+      <a class="ghost-button" routerLink="/items">Back</a>
+      <a class="primary-button" [routerLink]="['/items', item?.id, 'edit']">Edit</a>
+    </div>
+  </div>
+
+  <div class="notice" *ngIf="notice">
+    <span>{{ notice }}</span>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <span>Status</span>
+      <span class="status" [ngClass]="item?.status?.replace(' ', '-')">{{ item?.status }}</span>
+    </div>
+    <div class="row">
+      <span>Created</span>
+      <span>{{ item?.createdAt | date: 'medium' }}</span>
+    </div>
+    <div class="row" *ngIf="item?.updatedAt">
+      <span>Updated</span>
+      <span>{{ item?.updatedAt | date: 'medium' }}</span>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <section class="empty-state">
+    <h2>Item not found</h2>
+    <p>We could not locate that item.</p>
+    <a class="primary-button" routerLink="/items">Back to Items</a>
+  </section>
+</ng-template>
